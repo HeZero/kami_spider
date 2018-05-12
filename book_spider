@@ -1,0 +1,116 @@
+# -*- coding=utf-8 -*-
+
+import requests
+from lxml import etree
+
+
+def pre_spider():
+    base_url = "https://www.biquge5200.cc"
+    resp = requests.get(base_url)
+    html = etree.HTML(resp.text)
+    classifys = html.xpath("//div[@class='nav']/ul/li/a")
+    # classifyList = []
+    for classify in classifys:
+        # classifyList.append({classify.text: "https://" + classify.attrib['href']})
+        with open('../cache/classify.txt', 'a', encoding='utf-8') as af:
+            af.write(classify.text + ":" + "https:" + classify.attrib['href'] + '\n')
+
+
+def collect_noteInfo(url):
+        resp = requests.get(url)
+        html = etree.HTML(resp.text)
+        all_note = html.xpath("//div[@id='newscontent']/*/ul/li")
+
+        for note in all_note:
+            try:
+                try:
+                    noteInfo = note.xpath(".//span[@class='s2']/a")[0]
+                    title = noteInfo.text
+                    url = noteInfo.attrib['href']
+                except:
+                    pass
+
+                try:
+                    latest_chapter = note.xpath(".//span[@class='s3']/a")[0]
+                    chapter_url = latest_chapter.attrib['href']
+                    chapter_title = latest_chapter.text
+                except:
+                    pass
+
+                try:
+                    author = note.xpath(".//span[@class='s5']/text()")[0]
+                except:
+                    pass
+
+                with open('../cache/noteInfo.txt', 'a', encoding='utf-8') as af:
+                    note_txt = {"title":title, "content_url": url, "latest_chapter_url": chapter_url, "latest_chapter_title": chapter_title, "author": author}
+                    af.write(str(note_txt) + '\n')
+            except Exception as e:
+                print(e)
+
+
+def save_note(title, url):
+    resp = requests.get(url)
+    html = etree.HTML(resp.text)
+
+    with open("../cache/" + title + ".txt", 'a', encoding='utf-8') as af:
+        af.write('     ' + title + '      ' + '\n\n\n')
+        af.write("章节目录" + '\n')
+
+        count = 10
+        navList = []
+        nav_data = html.xpath("//*[@id='list']/dl/dd[{}]/a".format(count))[0]
+        nav = [nav_data.text, nav_data.attrib['href']]
+
+        while nav_data is not None:
+            try:
+                af.write(nav_data.text + '\n')
+
+                navList.append(nav)
+                count += 1
+                nav_data = html.xpath("//*[@id='list']/dl/dd[{}]/a".format(count))[0]
+                nav = [nav_data.text, nav_data.attrib['href']]
+            except:
+                break
+
+        af.write('\n\n\n' + "正文" + '\n\n\n')
+        for n in navList:
+            af.write('\n\n' + n[0] + '\n\n')
+            resp_content = requests.get(n[1])
+            content_html = etree.HTML(resp_content.text)
+            contents = content_html.xpath("//div[@id='content']/p/text()")
+            for c in contents:
+                af.write(c + '\n')
+
+
+
+
+if __name__ == '__main__':
+    # 入口
+    # pre_spider()
+
+    # 爬小说名
+    # with open('../cache/classify.txt', 'r') as rf:
+    #     cache = rf.readline()
+    #     while cache:
+    #         url = cache.split(':')[1] +":" + cache.split(':')[2].rstrip()
+    #         cache = rf.readline()
+    #
+    #         collect_noteInfo(url)
+
+    # 单本小说爬取内容测试
+    # resp = requests.get("https://www.biquge5200.cc/1_1718/")
+    # html = etree.HTML(resp.text)
+    # data = html.xpath("//*[@id='list']/dl/dd[10]/a")[0]
+    # print(data.text + data.attrib['href'])
+
+    # save_note('元尊', 'https://www.biquge5200.cc/79_79883/')
+
+    # with open('../cache/noteInfo.txt', 'r') as rf:
+    #     noteInfo = rf.readline().rstrip()
+    #     while noteInfo:
+    #         noteInfo = eval(noteInfo)
+    #         save_note(noteInfo['title'], noteInfo['content_url'])
+    #         noteInfo = rf.readline().rstrip()
+
+    save_note("天影", "https://www.biquge5200.cc/47_47675/")
