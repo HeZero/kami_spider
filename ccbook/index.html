@@ -15,8 +15,9 @@
 	<link rel="stylesheet" href="./css/style.css" type="text/css">
 	<link rel="icon" type="image/vnd.microsoft.icon" href="images/favicon.ico">
 	
-	<script src="./js/push.js"></script><script src="./js/hm.js"></script>
-	<script>
+	<script src="./js/push.js"></script>
+  <script src="./js/hm.js"></script>
+	<!-- <script>
 		var pageName = 'index';
 
 		function GetCookieVal(offset) {
@@ -53,23 +54,24 @@
 			return;
 		}
 
-//		if(location.href.substr(-9) == "?from_wap") {
-//			SetCookie("pcindex_source_from_wap", 1, 86400, "/", ".zhulang.com");
-//		} else {
-//			if(/Android|webOS|iPhone|iPod/i.test(navigator.userAgent)) {
-//				var pcindex_source_from_wap = GetCookie("pcindex_source_from_wap");
-//				if(!pcindex_source_from_wap) {
-//					SetCookie("pcindex_source_from_wap_test", -1, 100, "/", ".zhulang.com");
-//					if(GetCookie("pcindex_source_from_wap_test") == "-1") {
-//						window.location.replace("https://m.zhulang.com/");
-//					}
-//				}
-//			}
-//		}
-	</script>
+		if(location.href.substr(-9) == "?from_wap") {
+			SetCookie("pcindex_source_from_wap", 1, 86400, "/", ".zhulang.com");
+		} else {
+			if(/Android|webOS|iPhone|iPod/i.test(navigator.userAgent)) {
+				var pcindex_source_from_wap = GetCookie("pcindex_source_from_wap");
+				if(!pcindex_source_from_wap) {
+					SetCookie("pcindex_source_from_wap_test", -1, 100, "/", ".zhulang.com");
+					if(GetCookie("pcindex_source_from_wap_test") == "-1") {
+						window.location.replace("https://m.zhulang.com/");
+					}
+				}
+			}
+		}
+	</script> -->
 	<script src="./js/jquery-1.11.1.min.js"></script>
 	<script src="./js/require.js"></script>
 	<script src="./js/reqcfg.js"></script>
+  <script src="./js/ccbook.js" type="text/javascript" charset="utf-8" async defer></script>
 	<style>
 		h1.zl-logo {background-image: url(images/logo.png)!important;}
 		.gray-head h1.zl-logo {background-image: url(images/logo.png)!important;}
@@ -152,17 +154,9 @@
     <div class="global-nav" id="global-nav">
         <div class="main">
             <div class="g-nav-main clearfix">
-                <ul>
-                    <li class="cur"><a href="http://45.77.253.162/" target="_blank">首页</a></li>
-                    <li><a href="http://45.77.253.162/shuku/index.html" target="_blank">书库</a></li>
-                    <!--<li><a href="http://45.77.253.162/rank/index.html" target="_blank">排行榜</a></li>
-                    <li><a href="http://45.77.253.162/rank/mflower.html" target="_blank">鲜花榜</a></li>
-                    <li><a href="http://45.77.253.162/shuku/index/flag/2/full/1.html" target="_blank">全本</a></li>
-
-                                      
-                    <li><a href="http://45.77.253.162/fl/fltx.html?v=2017" target="_blank">福利</a></li>
-                    
-                    <li><a href="http://45.77.253.162/pay/index.html" target="_blank">充值</a></li>                                        -->
+                <ul id = "navs">
+                    <!-- <li class="cur"><a href="http://45.77.253.162/" target="_blank">首页</a></li>
+                    <li><a href="http://45.77.253.162/shuku/index.html" target="_blank">书库</a></li> -->
                 </ul>
                 <div class="g-nav-fn">
                     <a href="http://45.77.253.162/user/center.html" target="_blank"><i class="mbr"></i>会员专区</a>
@@ -984,25 +978,29 @@
   <!--end img-list--> 
 </div>
 <script src="./js/jquery.bxslider.min.js"></script> 
-<script>require(['zlang.index', 'addToShelfCtl'], function(Index, addToShelfCtl) {
+<script>
+  require(['zlang.index', 'addToShelfCtl'], function(Index, addToShelfCtl) {
 	Index.init();
 	addToShelfCtl.init();
 }
 
-);</script> 
+);
+</script> 
 
 <!--end of .main-->
 <div class="footer"> 
   <div class="main">
   <div class="inner-link"> <a href="http://45.77.253.162/help/about.html" target="_blank">关于ccbook</a>　|　<a href="https://writer.zhulang.com/index/index.html" target="_blank">作者投稿</a>　|　<a href="http://45.77.253.162/help/zhinan.html" target="_blank">用户指南</a>　|　<a href="http://45.77.253.162/help/service.html" target="_blank">服务条款</a>　|　<a href="http://45.77.253.162/help/copyright.html" target="_blank">版权声明</a>　|　<a href="http://45.77.253.162/help/map.html" target="_blank">网站地图</a>　|　<a href="http://45.77.253.162/help/job.html" target="_blank">招聘信息</a>　|　<a href="http://45.77.253.162/help/contact.html" target="_blank">联系我们</a> </div>
 </div>
-<script>var _hmt = _hmt || [];
+<script>
+  var _hmt = _hmt || [];
 (function() {
 	var hm = document.createElement("script");
 	hm.src = "//hm.baidu.com/hm.js?c4d45d45e1a473a3e43c8699766169ee";
 	var s = document.getElementsByTagName("script")[0];
 	s.parentNode.insertBefore(hm, s);
-})();</script>
+})();
+</script>
   <div class="add_service">
     <form action="http://js.cyberpolice.cn/servlet/PoliceServlet" name="bjgt">
       <a href="http://sq.ccm.gov.cn/ccnt/sczr/service/business/emark/toDetail/82EE5D7E12564ABB935A02DE3D2E259B" target="_blank"><img src="./images/wenhuajingying.png" style="width: 50px;height: 50px;border: 0px;"></a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -1020,4 +1018,5 @@
 	<div class="back-top"><a href="http://45.77.253.162/#nogo" title="返回顶部"></a></div>
 </div>
 
-</body></html>
+</body>
+</html>
